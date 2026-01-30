@@ -23,7 +23,7 @@ public class IntakePivot extends SubsystemBase {
 
   public IntakePivot() {
     pidSetPoint = 0;
-    pivotMotor = new TalonFX(1);//14
+    pivotMotor = new TalonFX(14);//14
     pivotPID = new PIDController(0.05, 0, 0);
     pivotMotor.setPosition(0);
     sensor = new DigitalInput(0);
