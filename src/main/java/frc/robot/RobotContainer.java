@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.commands.stopIntakeCommand;
 import frc.robot.commands.runIntakeCommand;
 import frc.robot.subsystems.IntakePivot;
 import frc.robot.subsystems.IndexSubsystem;
@@ -77,7 +76,6 @@ public class RobotContainer {
     //m_driverController.y().whileTrue(m_IntakeCommand);
     //aam_driverController.y().whileFalse(new StopIntake(m_intakeSubsystem));
     m_driverController.x().whileTrue(new RunUntilDetectedCommand(m_intakeSubsystem));
-   m_driverController.x().whileFalse(new stopIntakeCommand(m_intakeSubsystem));
    // m_driverController.leftBumper().onTrue(m_moveToPositionCommand);
    // m_driverController.rightBumper().whileTrue(m_ManualPivotCommand);
     // m_driverController.a().whileTrue(m_runIndexCommand);
