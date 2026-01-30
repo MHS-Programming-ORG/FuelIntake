@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IndexSubsystem extends SubsystemBase {
     private TalonFX indexMotor;
     public IndexSubsystem() {
-        indexMotor = new TalonFX(8);
+        indexMotor = new TalonFX(5);
     }
     public void setIndexSpeed(double speed){
         indexMotor.set(speed);

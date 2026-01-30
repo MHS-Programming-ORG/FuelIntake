@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;                                                                                                                                                                                                                                                                      
 import frc.robot.commands.runIntakeCommand;
 import frc.robot.subsystems.IntakePivot;
 import frc.robot.subsystems.IndexSubsystem;
@@ -32,7 +32,7 @@ import frc.robot.commands.MoveToPositionMagicCommand;
  */
 public class RobotContainer {
  private final CommandXboxController m_driverController = 
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+      new CommandXboxController(0);
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
@@ -74,8 +74,7 @@ public class RobotContainer {
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     //m_driverController.y().whileTrue(m_IntakeCommand);
-    //aam_driverController.y().whileFalse(new StopIntake(m_intakeSubsystem));
-    m_driverController.x().whileTrue(new RunUntilDetectedCommand(m_intakeSubsystem));
+    m_driverController.x().whileTrue(new runIntakeCommand(m_intakeSubsystem));
    // m_driverController.leftBumper().onTrue(m_moveToPositionCommand);
    // m_driverController.rightBumper().whileTrue(m_ManualPivotCommand);
     // m_driverController.a().whileTrue(m_runIndexCommand);

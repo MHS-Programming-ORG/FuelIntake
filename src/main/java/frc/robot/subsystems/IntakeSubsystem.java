@@ -12,7 +12,7 @@ public class IntakeSubsystem extends SubsystemBase {
 private TalonFX intakeMotor;
 
   public IntakeSubsystem() {
-  intakeMotor = new TalonFX(69);
+  intakeMotor = new TalonFX(1);
 
 }
 

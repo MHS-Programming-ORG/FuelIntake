@@ -11,9 +11,9 @@ import frc.robot.subsystems.IndexSubsystem;
 public class RunIndexCommand extends Command {
   IndexSubsystem Index;
   /** Creates a new RunIndexCommand. */
-  public RunIndexCommand(IndexSubsystem newIndexSubsystem) {
+  public RunIndexCommand(IndexSubsystem newIndexCommand) {
     // Use addRequirements() here to declare subsystem dependencies.
-    Index = newIndexSubsystem;
+    Index = newIndexCommand;
     addRequirements(Index);
   }
 
