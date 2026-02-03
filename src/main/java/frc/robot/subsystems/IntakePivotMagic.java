@@ -34,13 +34,16 @@ public class IntakePivotMagic extends SubsystemBase {
     configs.HardwareLimitSwitch.ReverseLimitEnable = true;
     configs.HardwareLimitSwitch.ReverseLimitAutosetPositionEnable = true;
     configs.HardwareLimitSwitch.ReverseLimitAutosetPositionValue = 0;
+    configs.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+    configs.SoftwareLimitSwitch.ReverseSoftLimitThreshold = 0;
+
 
     magic.MotionMagicAcceleration = 20;
     magic.MotionMagicCruiseVelocity = 10;
 
     pivotMotor.getConfigurator().apply(configs);
     pivotMotor.getConfigurator().apply(magic);
-
+    
 }
 
 public void setSetPoint(double newSetPoint){
@@ -53,7 +56,9 @@ return pivotMotor.getPosition().getValueAsDouble();
   }
   
 
-  
+  public int isDetected(){
+ return  pivotMotor.getReverseLimit().getValue().value;
+  }
 
  public void setSpeed(double speed)
  {
@@ -73,6 +78,7 @@ pivotMotor.set(speed);
   public void periodic() {
     SmartDashboard.putNumber("Pivot Encoders", getPivotEncoder());
     SmartDashboard.putNumber("Setpoint", setPoint);
+    SmartDashboard.putNumber("isDetected", isDetected());
     pivotMotor.setControl(request.withPosition(setPoint));
     }
   }
