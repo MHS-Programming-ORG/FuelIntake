@@ -7,10 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DigitalInput;
-
 import static edu.wpi.first.units.Units.KiloOhm;
-
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -19,7 +16,6 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 public class IntakePivotMagic extends SubsystemBase {
   MotionMagicConfigs magic;
   TalonFX pivotMotor;
-  // DigitalInput sensor;
   TalonFXConfiguration configs;
   MotionMagicVoltage request;
   double setPoint;
@@ -27,7 +23,6 @@ public class IntakePivotMagic extends SubsystemBase {
   public IntakePivotMagic() {
     pivotMotor = new TalonFX(4);
     magic = new MotionMagicConfigs();
-    // sensor = new DigitalInput(4);
     configs = new TalonFXConfiguration();
     request = new MotionMagicVoltage(0);
     setPoint = 0;
@@ -35,6 +30,7 @@ public class IntakePivotMagic extends SubsystemBase {
     slot0.kP = 0.005;
     slot0.kI = 0;
     slot0.kD = 0;
+    configs.HardwareLimitSwitch.ReverseLimitRemoteSensorID = 0;
 
     magic.MotionMagicAcceleration = 20;
     magic.MotionMagicCruiseVelocity = 10;
@@ -48,9 +44,6 @@ public void setSetPoint(double newSetPoint){
   setPoint = newSetPoint;
 }
 
-// public boolean isDetected(){
-//   return sensor.get();
-// }
 
   public double getPivotEncoder(){
 return pivotMotor.getPosition().getValueAsDouble();
