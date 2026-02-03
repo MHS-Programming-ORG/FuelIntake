@@ -15,9 +15,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.IntakeSubsystem;                                                                                                                                                                                                                                                                      
 import frc.robot.commands.runIntakeCommand;
-import frc.robot.subsystems.IndexSubsystem;
-import frc.robot.commands.RunIndexCommand;
-import frc.robot.commands.StopIndexCommand;
 import frc.robot.subsystems.IntakePivotMagic;
 import frc.robot.commands.MoveToPositionMagicCommand;
 
@@ -34,9 +31,6 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem);
-  private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
-  private final RunIndexCommand m_runIndexCommand = new RunIndexCommand(m_indexSubsystem);
-  private final StopIndexCommand m_stopIndexCommand = new StopIndexCommand(m_indexSubsystem);
   private final IntakePivotMagic m_intakePivotMagic = new IntakePivotMagic();
   private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 5);
   
