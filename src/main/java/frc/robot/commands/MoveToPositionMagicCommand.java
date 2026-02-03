@@ -11,9 +11,11 @@ import frc.robot.subsystems.IntakePivotMagic;
 public class MoveToPositionMagicCommand extends Command {
   IntakePivotMagic pivotMagic;
   double setpoint;
+  double tolerance;
   /** Creates a new MoveToPositionMagicCommand. */
-  public MoveToPositionMagicCommand(IntakePivotMagic newPivotIntakeMagic, double newSetpoint) {
+  public MoveToPositionMagicCommand(IntakePivotMagic newPivotIntakeMagic, double newSetpoint, double newTolerance) {
     setpoint = newSetpoint;
+    tolerance = newTolerance;
     pivotMagic = newPivotIntakeMagic;
     addRequirements(pivotMagic);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -31,11 +33,12 @@ public class MoveToPositionMagicCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(pivotMagic.getPivotEncoder() - setpoint) < tolerance;
   }
 }

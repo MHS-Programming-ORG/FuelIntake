@@ -32,7 +32,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem);
   private final IntakePivotMagic m_intakePivotMagic = new IntakePivotMagic();
-  private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 5);
+  private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 50, 0.5);
   
   
 
@@ -66,9 +66,11 @@ public class RobotContainer {
     
    // m_driverController.rightBumper().whileTrue(m_ManualPivotCommand);
     // m_driverController.a().whileTrue(m_runIndexCommand);
-    // m_driverController.a().whileFalse(m_stopIndexCommand);
+    // m_driverController.a().whileFalse(m_stopIndexCommand); 
     // m_driverController.leftBumper().onTrue(m_moveToPositionCommand);
     m_driverController.y().onTrue(m_moveToPositionMagicCommand);
+   m_driverController.x().onTrue(new MoveToPositionMagicCommand(m_intakePivotMagic, 0, 0.5));
+
   }
 
   /**

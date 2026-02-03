@@ -21,16 +21,15 @@ public class IntakePivotMagic extends SubsystemBase {
   double setPoint;
 
   public IntakePivotMagic() {
-    pivotMotor = new TalonFX(4);
+    pivotMotor = new TalonFX(9);
     magic = new MotionMagicConfigs();
     configs = new TalonFXConfiguration();
     setPoint = 0;
-    request = new MotionMagicVoltage(setPoint);
+    request = new MotionMagicVoltage(0);
     
-    var slot0 = configs.Slot0;
-    slot0.kP = 0.005;
-    slot0.kI = 0;
-    slot0.kD = 0;
+    configs.Slot0.kP = 1.0;
+    configs.Slot0.kI = 0;
+    configs.Slot0.kD = 0;
     configs.HardwareLimitSwitch.ReverseLimitRemoteSensorID = 0;
     configs.HardwareLimitSwitch.ReverseLimitEnable = true;
     configs.HardwareLimitSwitch.ReverseLimitAutosetPositionEnable = true;
@@ -73,7 +72,7 @@ pivotMotor.set(speed);
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Pivot Encoders", getPivotEncoder());
-    SmartDashboard.putNumber("Setpoint", getPivotEncoder());
+    SmartDashboard.putNumber("Setpoint", setPoint);
     pivotMotor.setControl(request.withPosition(setPoint));
     }
   }
