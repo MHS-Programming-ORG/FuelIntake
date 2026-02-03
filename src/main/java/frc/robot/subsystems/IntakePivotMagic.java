@@ -24,13 +24,17 @@ public class IntakePivotMagic extends SubsystemBase {
     pivotMotor = new TalonFX(4);
     magic = new MotionMagicConfigs();
     configs = new TalonFXConfiguration();
-    request = new MotionMagicVoltage(0);
     setPoint = 0;
+    request = new MotionMagicVoltage(setPoint);
+    
     var slot0 = configs.Slot0;
     slot0.kP = 0.005;
     slot0.kI = 0;
     slot0.kD = 0;
     configs.HardwareLimitSwitch.ReverseLimitRemoteSensorID = 0;
+    configs.HardwareLimitSwitch.ReverseLimitEnable = true;
+    configs.HardwareLimitSwitch.ReverseLimitAutosetPositionEnable = true;
+    configs.HardwareLimitSwitch.ReverseLimitAutosetPositionValue = 0;
 
     magic.MotionMagicAcceleration = 20;
     magic.MotionMagicCruiseVelocity = 10;
