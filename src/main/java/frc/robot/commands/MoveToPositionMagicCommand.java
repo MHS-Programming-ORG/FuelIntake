@@ -10,8 +10,10 @@ import frc.robot.subsystems.IntakePivotMagic;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class MoveToPositionMagicCommand extends Command {
   IntakePivotMagic pivotMagic;
+  double setpoint;
   /** Creates a new MoveToPositionMagicCommand. */
-  public MoveToPositionMagicCommand(IntakePivotMagic newPivotIntakeMagic) {
+  public MoveToPositionMagicCommand(IntakePivotMagic newPivotIntakeMagic, double newSetpoint) {
+    setpoint = newSetpoint;
     pivotMagic = newPivotIntakeMagic;
     addRequirements(pivotMagic);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -24,7 +26,7 @@ public class MoveToPositionMagicCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pivotMagic.setSetPoint(4);
+    pivotMagic.setSetPoint(setpoint);
   }
 
   // Called once the command ends or is interrupted.

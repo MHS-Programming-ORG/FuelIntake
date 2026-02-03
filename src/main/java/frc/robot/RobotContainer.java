@@ -44,7 +44,7 @@ public class RobotContainer {
   private final RunIndexCommand m_runIndexCommand = new RunIndexCommand(m_indexSubsystem);
   private final StopIndexCommand m_stopIndexCommand = new StopIndexCommand(m_indexSubsystem);
   private final IntakePivotMagic m_intakePivotMagic = new IntakePivotMagic();
-  private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic);
+  private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 5);
   
   
 
@@ -72,14 +72,15 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand()); // test intake
     //m_driverController.y().whileTrue(m_IntakeCommand);
-    m_driverController.x().whileTrue(new runIntakeCommand(m_intakeSubsystem));
-   // m_driverController.leftBumper().onTrue(m_moveToPositionCommand);
+    //m_driverController.x().whileTrue(new runIntakeCommand(m_intakeSubsystem)); // test intake
+    
    // m_driverController.rightBumper().whileTrue(m_ManualPivotCommand);
     // m_driverController.a().whileTrue(m_runIndexCommand);
     // m_driverController.a().whileFalse(m_stopIndexCommand);
-    // m_driverController.y().onTrue(m_moveToPositionMagicCommand);
+    // m_driverController.leftBumper().onTrue(m_moveToPositionCommand);
+    m_driverController.y().onTrue(m_moveToPositionMagicCommand);
   }
 
   /**

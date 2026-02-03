@@ -25,7 +25,7 @@ public class IntakePivotMagic extends SubsystemBase {
   double setPoint;
 
   public IntakePivotMagic() {
-    pivotMotor = new TalonFX(67);
+    pivotMotor = new TalonFX(4);
     magic = new MotionMagicConfigs();
     // sensor = new DigitalInput(4);
     configs = new TalonFXConfiguration();
@@ -76,6 +76,7 @@ pivotMotor.set(speed);
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Pivot Encoders", getPivotEncoder());
-    //pivotMotor.setControl(request.withPosition(setPoint));
+    SmartDashboard.putNumber("Setpoint", getPivotEncoder());
+    pivotMotor.setControl(request.withPosition(setPoint));
     }
   }
