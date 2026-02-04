@@ -5,15 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.IntakePivotMagic;
+import frc.robot.subsystems.PivotSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class MoveToPositionMagicCommand extends Command {
-  IntakePivotMagic pivotMagic;
+  PivotSubsystem pivotMagic;
   double setpoint;
   double tolerance;
   /** Creates a new MoveToPositionMagicCommand. */
-  public MoveToPositionMagicCommand(IntakePivotMagic newPivotIntakeMagic, double newSetpoint, double newTolerance) {
+  public MoveToPositionMagicCommand(PivotSubsystem newPivotIntakeMagic, double newSetpoint, double newTolerance) {
     setpoint = newSetpoint;
     tolerance = newTolerance;
     pivotMagic = newPivotIntakeMagic;

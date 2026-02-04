@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.IntakeSubsystem;                                                                                                                                                                                                                                                                      
 import frc.robot.commands.runIntakeCommand;
-import frc.robot.subsystems.IntakePivotMagic;
+import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.commands.MoveToPositionMagicCommand;
 
 /**
@@ -31,7 +31,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem);
-  private final IntakePivotMagic m_intakePivotMagic = new IntakePivotMagic();
+  private final PivotSubsystem m_intakePivotMagic = new PivotSubsystem();
   private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 50, 0.5);
   
   
