@@ -10,6 +10,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static edu.wpi.first.units.Units.KiloOhm;
+
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -38,6 +40,8 @@ public class PivotSubsystem extends SubsystemBase {
     configs.Slot0.kP = 1.0;
     configs.Slot0.kI = 0;
     configs.Slot0.kD = 0;
+    configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(true));
+    configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(true));
 
     magic.MotionMagicAcceleration = 20;
     magic.MotionMagicCruiseVelocity = 10;
