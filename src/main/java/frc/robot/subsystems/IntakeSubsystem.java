@@ -18,7 +18,7 @@ private TalonFX intakeMotor;
 private TalonFXConfiguration configs;
 
   public IntakeSubsystem() {
-  intakeMotor = new TalonFX(15);
+  intakeMotor = new TalonFX(3);
   configs = new TalonFXConfiguration();
   configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(true));
    configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(true));
