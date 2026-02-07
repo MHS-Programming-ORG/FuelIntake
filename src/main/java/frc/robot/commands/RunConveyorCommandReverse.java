@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ConveyorSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class RunConveyorCommand extends Command {
+public class RunConveyorCommandReverse extends Command {
   ConveyorSubsystem Conveyor;
   /** Creates a new RunIndexCommand. */
-  public RunConveyorCommand(ConveyorSubsystem newConveyorCommand) {
+  public RunConveyorCommandReverse(ConveyorSubsystem newConveyorCommand) {
     // Use addRequirements() here to declare subsystem dependencies.
     Conveyor = newConveyorCommand;
     addRequirements(Conveyor);
@@ -24,7 +24,7 @@ public class RunConveyorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Conveyor.setConveyorSpeed(0.5);
+    Conveyor.setConveyorSpeed(-0.5);
   }
 
   // Called once the command ends or is interrupted.

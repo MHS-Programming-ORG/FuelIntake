@@ -14,8 +14,8 @@ public class ConveyorSubsystem extends SubsystemBase {
     public ConveyorSubsystem() {
         conveyorMotor = new TalonFX(15);
         configs = new TalonFXConfiguration();
-        configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(true));
-        configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(true));
+        configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(false));
+        configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(false));
         conveyorMotor.getConfigurator().apply(configs);
     }
     public void setConveyorSpeed(double speed){

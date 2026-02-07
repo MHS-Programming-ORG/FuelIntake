@@ -18,7 +18,8 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.runIntakeCommand;
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.commands.MoveToPositionMagicCommand;
-import frc.robot.commands.RunConveyorCommand;
+import frc.robot.commands.RunConveyorCommandForward;
+import frc.robot.commands.RunConveyorCommandReverse;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -34,7 +35,8 @@ public class RobotContainer {
   private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem);
   private final PivotSubsystem m_intakePivotMagic = new PivotSubsystem();
   private final ConveyorSubsystem m_ConveyorSubsystem = new ConveyorSubsystem();
-  private final RunConveyorCommand m_RunConveyorCommand = new RunConveyorCommand(m_ConveyorSubsystem);
+  private final RunConveyorCommandReverse m_RunConveyorCommandReverse = new RunConveyorCommandReverse(m_ConveyorSubsystem);
+  private final RunConveyorCommandReverse m_RunConveyorCommandForward = new RunConveyorCommandReverse(m_ConveyorSubsystem);
   private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 50, 0.5);
   
   
@@ -68,7 +70,8 @@ public class RobotContainer {
     //m_driverController.x().whileTrue(new runIntakeCommand(m_intakeSubsystem)); // test intake
     
    // m_driverController.rightBumper().whileTrue(m_ManualPivotCommand);
-     m_driverController.a().whileTrue(m_RunConveyorCommand);
+     m_driverController.a().whileTrue(m_RunConveyorCommandReverse);
+      m_driverController.b().whileTrue(m_RunConveyorCommandForward);
     // m_driverController.a().whileFalse(m_stopIndexCommand); 
     // m_driverController.leftBumper().onTrue(m_moveToPositionCommand);
     m_driverController.y().onTrue(m_moveToPositionMagicCommand);
