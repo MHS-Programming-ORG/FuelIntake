@@ -6,14 +6,23 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX; 
 import edu.wpi.first.wpilibj.DigitalInput;
+
+
 public class IntakeSubsystem extends SubsystemBase {
 private TalonFX intakeMotor;
+private TalonFXConfiguration configs;
 
   public IntakeSubsystem() {
   intakeMotor = new TalonFX(15);
-
+  configs = new TalonFXConfiguration();
+  configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(true));
+   configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(true));
+   intakeMotor.getConfigurator().apply(configs);
 }
 
   public void setSpeed(double speed){
@@ -23,6 +32,7 @@ private TalonFX intakeMotor;
   public double getEncoder(){
   return intakeMotor.getPosition().getValueAsDouble();
   }
+
 
   
   @Override
