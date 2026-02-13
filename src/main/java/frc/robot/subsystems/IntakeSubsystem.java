@@ -17,8 +17,8 @@ public class IntakeSubsystem extends SubsystemBase {
 private TalonFX intakeMotor;
 private TalonFXConfiguration configs;
 
-  public IntakeSubsystem() {
-  intakeMotor = new TalonFX(3);
+  public IntakeSubsystem(int newintakeID) {
+  intakeMotor = new TalonFX(newintakeID);
   configs = new TalonFXConfiguration();
   configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(true));
    configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(true));

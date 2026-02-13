@@ -25,8 +25,8 @@ public class PivotSubsystem extends SubsystemBase {
 
   double setPoint;
 
-  public PivotSubsystem() {
-    pivotMotor = new TalonFX(3);
+  public PivotSubsystem(int newpivotID) {
+    pivotMotor = new TalonFX(newpivotID);
     pivotLimitSwitch = new DigitalInput(0);
     
     magic = new MotionMagicConfigs();
