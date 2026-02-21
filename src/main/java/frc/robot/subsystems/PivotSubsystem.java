@@ -13,6 +13,7 @@ import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 
 public class PivotSubsystem extends SubsystemBase {
   
@@ -22,6 +23,7 @@ public class PivotSubsystem extends SubsystemBase {
   MotionMagicConfigs magic;
   TalonFXConfiguration configs;
   MotionMagicVoltage request;
+  SoftwareLimitSwitchConfigs limit;
 
   double setPoint;
 
@@ -32,12 +34,21 @@ public class PivotSubsystem extends SubsystemBase {
     magic = new MotionMagicConfigs();
     configs = new TalonFXConfiguration();
     request = new MotionMagicVoltage(0);
+    limit = new SoftwareLimitSwitchConfigs();
+    limit.ForwardSoftLimitEnable = false;
+    limit.ReverseSoftLimitEnable = false;
+    limit.ForwardSoftLimitThreshold = 0;
+    limit.ReverseSoftLimitThreshold = 0;
     
     setPoint = 0;
 
     configs.Slot0.kP = 1.0;
     configs.Slot0.kI = 0;
     configs.Slot0.kD = 0;
+    configs.Slot0.kS = 0 ;
+    configs.Slot0.kV = 0;
+    configs.Slot0.kG = 0;
+    configs.Slot0.kA = 0;
     configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(true));
     configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(true));
 
@@ -73,6 +84,7 @@ public class PivotSubsystem extends SubsystemBase {
 
     if(pivotLimitSwitch.get() && pivotMotor.getVelocity().getValueAsDouble() < 0) {
       resetEncoder();
+      setSetPoint(0);
     }
 
     pivotMotor.setControl(request.withPosition(setPoint));
