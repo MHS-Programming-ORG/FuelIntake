@@ -36,7 +36,8 @@ public class RobotContainer {
   private final PivotSubsystem m_intakePivotMagic = new PivotSubsystem(3, 0);
   private final ConveyorSubsystem m_ConveyorSubsystem = new ConveyorSubsystem(15);
   private final RunConveyorCommandReverse m_RunConveyorCommandReverse = new RunConveyorCommandReverse(m_ConveyorSubsystem);
-  private final RunConveyorCommandReverse m_RunConveyorCommandForward = new RunConveyorCommandReverse(m_ConveyorSubsystem);
+  private final RunConveyorCommandForward m_RunConveyorCommandForward = new RunConveyorCommandForward(m_ConveyorSubsystem);
+  private final InstantCommand m_StopConveyor = new InstantCommand(() -> m_ConveyorSubsystem.setConveyorSpeed(0));
   private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 50, 0.5);
   
   
@@ -72,10 +73,11 @@ public class RobotContainer {
    // m_driverController.rightBumper().whileTrue(m_ManualPivotCommand);
      m_driverController.a().whileTrue(m_RunConveyorCommandReverse);
       m_driverController.b().whileTrue(m_RunConveyorCommandForward);
-    // m_driverController.a().whileFalse(m_stopIndexCommand); 
+     m_driverController.a().whileFalse(m_StopConveyor);
+      m_driverController.b().whileFalse(m_StopConveyor); 
     // m_driverController.leftBumper().onTrue(m_moveToPositionCommand);
-    m_driverController.y().onTrue(m_moveToPositionMagicCommand);
-   m_driverController.x().onTrue(new MoveToPositionMagicCommand(m_intakePivotMagic, 0, 0.5));
+    //m_driverController.y().onTrue(m_moveToPositionMagicCommand);
+   //m_driverController.x().onTrue(new MoveToPositionMagicCommand(m_intakePivotMagic, 0, 0.5));
 
   }
 
