@@ -33,7 +33,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem(4);
   private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem);
-  private final PivotSubsystem m_intakePivotMagic = new PivotSubsystem(3, 5);
+  private final PivotSubsystem m_intakePivotMagic = new PivotSubsystem(3, 0);
   private final ConveyorSubsystem m_ConveyorSubsystem = new ConveyorSubsystem(15);
   private final RunConveyorCommandReverse m_RunConveyorCommandReverse = new RunConveyorCommandReverse(m_ConveyorSubsystem);
   private final RunConveyorCommandReverse m_RunConveyorCommandForward = new RunConveyorCommandReverse(m_ConveyorSubsystem);

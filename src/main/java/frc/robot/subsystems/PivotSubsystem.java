@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
@@ -42,18 +43,18 @@ public class PivotSubsystem extends SubsystemBase {
     
     setPoint = 0;
 
-    configs.Slot0.kP = 1.0;
+    configs.Slot0.kP = 0;
     configs.Slot0.kI = 0;
     configs.Slot0.kD = 0;
     configs.Slot0.kS = 0 ;
     configs.Slot0.kV = 0;
     configs.Slot0.kG = 0;
     configs.Slot0.kA = 0;
-    configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(true));
-    configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(true));
+    configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(false));
+    configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(false));
 
-    magic.MotionMagicAcceleration = 20;
-    magic.MotionMagicCruiseVelocity = 10;
+    magic.MotionMagicAcceleration = 0;
+    magic.MotionMagicCruiseVelocity = 0;
 
     pivotMotor.getConfigurator().apply(configs);
     pivotMotor.getConfigurator().apply(magic);
@@ -75,12 +76,15 @@ public class PivotSubsystem extends SubsystemBase {
   public void resetEncoder() {
     pivotMotor.setPosition(0);
   }
+  public boolean isPressed() {
+    return !pivotLimitSwitch.get();
+  }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Pivot Encoders", getPivotEncoder());
     SmartDashboard.putNumber("Setpoint", setPoint);
-    SmartDashboard.putBoolean("Pivot Limit Switch", pivotLimitSwitch.get());
+    SmartDashboard.putBoolean("Pivot Limit Switch", isPressed());
 
     if(pivotLimitSwitch.get() && pivotMotor.getVelocity().getValueAsDouble() < 0) {
       resetEncoder();
