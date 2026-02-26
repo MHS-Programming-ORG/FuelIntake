@@ -31,7 +31,7 @@ public class RobotContainer {
       new CommandXboxController(0);
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem(4);
+  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem(20);
   private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem);
   private final PivotSubsystem m_intakePivotMagic = new PivotSubsystem(3, 0);
   private final ConveyorSubsystem m_ConveyorSubsystem = new ConveyorSubsystem(15);
