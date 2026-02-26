@@ -52,8 +52,8 @@ public class PivotSubsystem extends SubsystemBase {
     configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(true));
     configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(true));
 
-    magic.MotionMagicAcceleration = 20;
-    magic.MotionMagicCruiseVelocity = 10;
+    magic.MotionMagicAcceleration = 0;
+    magic.MotionMagicCruiseVelocity = 0;
 
     pivotMotor.getConfigurator().apply(configs);
     pivotMotor.getConfigurator().apply(magic);
