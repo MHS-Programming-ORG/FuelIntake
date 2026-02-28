@@ -33,7 +33,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem(20);
   private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem);
-  private final PivotSubsystem m_intakePivotMagic = new PivotSubsystem(3, 0);
+  private final PivotSubsystem m_intakePivotMagic = new PivotSubsystem(19, 0);
   private final ConveyorSubsystem m_ConveyorSubsystem = new ConveyorSubsystem(15);
   private final RunConveyorCommandReverse m_RunConveyorCommandReverse = new RunConveyorCommandReverse(m_ConveyorSubsystem);
   private final RunConveyorCommandForward m_RunConveyorCommandForward = new RunConveyorCommandForward(m_ConveyorSubsystem);
@@ -70,14 +70,14 @@ public class RobotContainer {
     //m_driverController.y().whileTrue(m_IntakeCommand);
     //m_driverController.x().whileTrue(new runIntakeCommand(m_intakeSubsystem)); // test intake
     
-   // m_driverController.rightBumper().whileTrue(m_ManualPivotCommand);
-     m_driverController.a().whileTrue(m_RunConveyorCommandReverse);
-      m_driverController.b().whileTrue(m_RunConveyorCommandForward);
-     m_driverController.a().whileFalse(m_StopConveyor);
-      m_driverController.b().whileFalse(m_StopConveyor); 
-    // m_driverController.leftBumper().onTrue(m_moveToPositionCommand);
+    //m_driverController.rightBumper().whileTrue(m_ManualPivotCommand);
+    //  m_driverController.a().whileTrue(m_RunConveyorCommandReverse);
+    //   m_driverController.b().whileTrue(m_RunConveyorCommandForward);
+    //  m_driverController.a().whileFalse(m_StopConveyor);
+    //   m_driverController.b().whileFalse(m_StopConveyor); 
     //m_driverController.y().onTrue(m_moveToPositionMagicCommand);
    //m_driverController.x().onTrue(new MoveToPositionMagicCommand(m_intakePivotMagic, 0, 0.5));
+
 
   }
 

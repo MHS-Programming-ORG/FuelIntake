@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
@@ -43,6 +45,8 @@ public class PivotSubsystem extends SubsystemBase {
     
     setPoint = 0;
 
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     configs.Slot0.kP = 0;
     configs.Slot0.kI = 0;
     configs.Slot0.kD = 0;
@@ -86,11 +90,11 @@ public class PivotSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Setpoint", setPoint);
     SmartDashboard.putBoolean("Pivot Limit Switch", isPressed());
 
-    if(pivotLimitSwitch.get() && pivotMotor.getVelocity().getValueAsDouble() < 0) {
+    if(isPressed()) {
       resetEncoder();
       setSetPoint(0);
     }
 
-    pivotMotor.setControl(request.withPosition(setPoint));
+    // pivotMotor.setControl(request.withPosition(setPoint));
   }
 }
