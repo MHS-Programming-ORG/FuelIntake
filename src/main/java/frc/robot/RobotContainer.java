@@ -20,6 +20,7 @@ import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.commands.MoveToPositionMagicCommand;
 import frc.robot.commands.RunConveyorCommandForward;
 import frc.robot.commands.RunConveyorCommandReverse;
+import frc.robot.commands.ManualPivotCommand;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -33,20 +34,19 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem(20);
   private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem);
-  private final PivotSubsystem m_intakePivotMagic = new PivotSubsystem(19, 0);
+  private final PivotSubsystem m_intakePivot = new PivotSubsystem(19, 0);
   private final ConveyorSubsystem m_ConveyorSubsystem = new ConveyorSubsystem(15);
   private final RunConveyorCommandReverse m_RunConveyorCommandReverse = new RunConveyorCommandReverse(m_ConveyorSubsystem);
   private final RunConveyorCommandForward m_RunConveyorCommandForward = new RunConveyorCommandForward(m_ConveyorSubsystem);
   private final InstantCommand m_StopConveyor = new InstantCommand(() -> m_ConveyorSubsystem.setConveyorSpeed(0));
-  private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 50, 0.5);
-  
+  private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivot, 50, 0.5);
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the trigger bindings
+    m_intakePivot.setDefaultCommand(new ManualPivotCommand(m_intakePivot, () -> m_driverController.getLeftY()));
     configureBindings();
   }
 
@@ -69,7 +69,6 @@ public class RobotContainer {
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand()); // test intake
     //m_driverController.y().whileTrue(m_IntakeCommand);
     //m_driverController.x().whileTrue(new runIntakeCommand(m_intakeSubsystem)); // test intake
-    
     //m_driverController.rightBumper().whileTrue(m_ManualPivotCommand);
     //  m_driverController.a().whileTrue(m_RunConveyorCommandReverse);
     //   m_driverController.b().whileTrue(m_RunConveyorCommandForward);

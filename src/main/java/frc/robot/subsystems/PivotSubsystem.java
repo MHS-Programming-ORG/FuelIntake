@@ -18,6 +18,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 
+
 public class PivotSubsystem extends SubsystemBase {
   
   TalonFX pivotMotor;
@@ -38,9 +39,9 @@ public class PivotSubsystem extends SubsystemBase {
     configs = new TalonFXConfiguration();
     request = new MotionMagicVoltage(0);
     limit = new SoftwareLimitSwitchConfigs();
-    limit.ForwardSoftLimitEnable = false;
-    limit.ReverseSoftLimitEnable = false;
-    limit.ForwardSoftLimitThreshold = 0;
+    limit.ForwardSoftLimitEnable = true;
+    limit.ReverseSoftLimitEnable = true;
+    limit.ForwardSoftLimitThreshold = 20.5;
     limit.ReverseSoftLimitThreshold = 0;
     
     setPoint = 0;
@@ -51,9 +52,7 @@ public class PivotSubsystem extends SubsystemBase {
     configs.Slot0.kI = 0;
     configs.Slot0.kD = 0;
     configs.Slot0.kS = 0 ;
-    configs.Slot0.kV = 0;
-    configs.Slot0.kG = 0;
-    configs.Slot0.kA = 0;
+
     configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(false));
     configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(false));
 
@@ -76,6 +75,12 @@ public class PivotSubsystem extends SubsystemBase {
     pivotMotor.set(speed);
 
   }
+
+  public void setJoystickSpeed(double manualSpeed) {
+    pivotMotor.set(manualSpeed);
+
+  }
+
 
   public void resetEncoder() {
     pivotMotor.setPosition(0);
