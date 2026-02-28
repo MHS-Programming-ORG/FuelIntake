@@ -6,8 +6,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
@@ -42,15 +45,17 @@ public class PivotSubsystem extends SubsystemBase {
     
     setPoint = 0;
 
-    configs.Slot0.kP = 1.0;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    configs.Slot0.kP = 0;
     configs.Slot0.kI = 0;
     configs.Slot0.kD = 0;
     configs.Slot0.kS = 0 ;
     configs.Slot0.kV = 0;
     configs.Slot0.kG = 0;
     configs.Slot0.kA = 0;
-    configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(true));
-    configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(true));
+    configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(false));
+    configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(false));
 
     magic.MotionMagicAcceleration = 0;
     magic.MotionMagicCruiseVelocity = 0;
@@ -75,18 +80,21 @@ public class PivotSubsystem extends SubsystemBase {
   public void resetEncoder() {
     pivotMotor.setPosition(0);
   }
+  public boolean isPressed() {
+    return !pivotLimitSwitch.get();
+  }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Pivot Encoders", getPivotEncoder());
     SmartDashboard.putNumber("Setpoint", setPoint);
-    SmartDashboard.putBoolean("Pivot Limit Switch", pivotLimitSwitch.get());
+    SmartDashboard.putBoolean("Pivot Limit Switch", isPressed());
 
-    if(pivotLimitSwitch.get() && pivotMotor.getVelocity().getValueAsDouble() < 0) {
+    if(isPressed()) {
       resetEncoder();
       setSetPoint(0);
     }
 
-    pivotMotor.setControl(request.withPosition(setPoint));
+    // pivotMotor.setControl(request.withPosition(setPoint));
   }
 }
