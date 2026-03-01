@@ -7,19 +7,19 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.RunUntilDetectedCommand;
+import frc.robot.commands.ConveyorCommands.RunConveyorCommandForward;
+import frc.robot.commands.ConveyorCommands.RunConveyorCommandReverse;
+import frc.robot.commands.IntakeRollerCommands.RunUntilDetectedCommand;
+import frc.robot.commands.IntakeRollerCommands.runIntakeCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.subsystems.IntakeSubsystem;                                                                                                                                                                                                                                                                      
-import frc.robot.commands.runIntakeCommand;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
-import frc.robot.commands.MoveToPositionMagicCommand;
-import frc.robot.commands.RunConveyorCommandForward;
-import frc.robot.commands.RunConveyorCommandReverse;
+import frc.robot.commands.IntakePivotCommands.MoveToPositionMagicCommand;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -38,7 +38,8 @@ public class RobotContainer {
   private final RunConveyorCommandReverse m_RunConveyorCommandReverse = new RunConveyorCommandReverse(m_ConveyorSubsystem);
   private final RunConveyorCommandForward m_RunConveyorCommandForward = new RunConveyorCommandForward(m_ConveyorSubsystem);
   private final InstantCommand m_StopConveyor = new InstantCommand(() -> m_ConveyorSubsystem.setConveyorSpeed(0));
-  private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 50, 0.5);
+  private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 21, 0.5);
+  private final MoveToPositionMagicCommand m_movePivotInCommand = new MoveToPositionMagicCommand(m_intakePivotMagic, 0, 0.5);
   
   
 
@@ -75,10 +76,16 @@ public class RobotContainer {
     //   m_driverController.b().whileTrue(m_RunConveyorCommandForward);
     //  m_driverController.a().whileFalse(m_StopConveyor);
     //   m_driverController.b().whileFalse(m_StopConveyor); 
-    //m_driverController.y().onTrue(m_moveToPositionMagicCommand);
+    m_driverController.y().onTrue(m_moveToPositionMagicCommand);
+    m_driverController.a().onTrue(m_movePivotInCommand);
    //m_driverController.x().onTrue(new MoveToPositionMagicCommand(m_intakePivotMagic, 0, 0.5));
+    // m_driverController.y().whileTrue(new InstantCommand(()-> m_intakePivotMagic.setVoltage(0.4)));
+    // m_driverController.y().whileFalse(new InstantCommand(()-> m_intakePivotMagic.setVoltage(0)));
 
+  }
 
+  public PivotSubsystem getPivotSubsystem(){
+    return m_intakePivotMagic;
   }
 
   /**

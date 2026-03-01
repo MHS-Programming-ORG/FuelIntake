@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.IntakePivotCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.PivotSubsystem;
@@ -31,11 +31,10 @@ public class AgitatePivotCommand extends Command {
   @Override
   public void execute() {
     double currentPos = pivot.getPivotEncoder();
-    double tolerance = 0.1;
 
-    if (MovingInOrOut && currentPos >= (pivotOut - tolerance)) {
+    if (MovingInOrOut && currentPos >= pivotOut) {
         MovingInOrOut = false;
-    } else if (!MovingInOrOut && currentPos <= (pivotIn + tolerance)) {
+    } else if (!MovingInOrOut && currentPos <= pivotIn) {
         MovingInOrOut = true;
     }
 

@@ -16,6 +16,7 @@ import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 
 public class PivotSubsystem extends SubsystemBase {
@@ -27,6 +28,10 @@ public class PivotSubsystem extends SubsystemBase {
   TalonFXConfiguration configs;
   MotionMagicVoltage request;
   SoftwareLimitSwitchConfigs limit;
+  
+
+  VoltageOut voltageReq = new VoltageOut(0);
+  double voltageSet = 0;
 
   double setPoint;
 
@@ -38,30 +43,33 @@ public class PivotSubsystem extends SubsystemBase {
     configs = new TalonFXConfiguration();
     request = new MotionMagicVoltage(0);
     limit = new SoftwareLimitSwitchConfigs();
-    limit.ForwardSoftLimitEnable = false;
-    limit.ReverseSoftLimitEnable = false;
-    limit.ForwardSoftLimitThreshold = 0;
+    limit.ForwardSoftLimitEnable = true;
+    limit.ReverseSoftLimitEnable = true;
+    limit.ForwardSoftLimitThreshold = 21;
     limit.ReverseSoftLimitThreshold = 0;
     
     setPoint = 0;
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    configs.Slot0.kP = 0;
+    configs.Slot0.kP = 1;
     configs.Slot0.kI = 0;
     configs.Slot0.kD = 0;
-    configs.Slot0.kS = 0 ;
-    configs.Slot0.kV = 0;
-    configs.Slot0.kG = 0;
-    configs.Slot0.kA = 0;
+    configs.Slot0.kS = 0.4; 
+    configs.Slot0.kV = 0; //Don't use this, last time we used it we broke the pivot 
+    configs.Slot0.kG = 0; //Don't use this either, there is no gravity compensation on the pivot 
+    configs.Slot0.kA = 0; //Don't use this either, there is no acceleration feedforward on the pivot 
     configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(false));
     configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(false));
 
-    magic.MotionMagicAcceleration = 0;
-    magic.MotionMagicCruiseVelocity = 0;
+    magic.MotionMagicAcceleration = 10;
+    magic.MotionMagicCruiseVelocity = 5;
+    magic.MotionMagicExpo_kA = 0.10000000149011612;
+    magic.MotionMagicExpo_kV = 0.11999999731779099;
 
     pivotMotor.getConfigurator().apply(configs);
     pivotMotor.getConfigurator().apply(magic);
+    pivotMotor.getConfigurator().apply(limit);
   }
 
   public void setSetPoint(double newSetPoint) {
@@ -77,11 +85,19 @@ public class PivotSubsystem extends SubsystemBase {
 
   }
 
+  public void stopPivotMotor(){
+    pivotMotor.stopMotor();
+  }
+
   public void resetEncoder() {
     pivotMotor.setPosition(0);
   }
   public boolean isPressed() {
     return !pivotLimitSwitch.get();
+  }
+
+  public void setVoltage(double voltage){
+    voltageSet = voltage;
   }
 
   @Override
@@ -92,9 +108,9 @@ public class PivotSubsystem extends SubsystemBase {
 
     if(isPressed()) {
       resetEncoder();
-      setSetPoint(0);
-    }
+    }  
 
-    // pivotMotor.setControl(request.withPosition(setPoint));
+    pivotMotor.setControl(request.withPosition(setPoint));
+    // pivotMotor.setControl(voltageReq.withOutput(voltageSet));
   }
 }

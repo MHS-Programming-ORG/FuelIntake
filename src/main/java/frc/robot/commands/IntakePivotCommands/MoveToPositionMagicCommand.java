@@ -1,20 +1,26 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
+//yippie
+package frc.robot.commands.IntakePivotCommands;
 
-package frc.robot.commands;
-
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class RunConveyorCommandReverse extends Command {
-  ConveyorSubsystem Conveyor;
-  /** Creates a new RunIndexCommand. */
-  public RunConveyorCommandReverse(ConveyorSubsystem newConveyorCommand) {
+public class MoveToPositionMagicCommand extends Command {
+  PivotSubsystem pivotMagic;
+  double setpoint;
+  double tolerance;
+  /** Creates a new MoveToPositionMagicCommand. */
+  public MoveToPositionMagicCommand(PivotSubsystem newPivotIntakeMagic, double newSetpoint, double newTolerance) {
+    setpoint = newSetpoint;
+    tolerance = newTolerance;
+    pivotMagic = newPivotIntakeMagic;
+    addRequirements(pivotMagic);
     // Use addRequirements() here to declare subsystem dependencies.
-    Conveyor = newConveyorCommand;
-    addRequirements(Conveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -24,18 +30,18 @@ public class RunConveyorCommandReverse extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Conveyor.setConveyorSpeed(-0.5);
+    pivotMagic.setSetPoint(setpoint);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Conveyor.setConveyorSpeed(0);
+    SmartDashboard.putString("isFinished", "yes");
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return MathUtil.isNear(setpoint, pivotMagic.getPivotEncoder(), tolerance);
   }
 }
