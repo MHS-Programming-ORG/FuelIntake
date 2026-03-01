@@ -19,6 +19,7 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 
+
 public class PivotSubsystem extends SubsystemBase {
   
   TalonFX pivotMotor;
