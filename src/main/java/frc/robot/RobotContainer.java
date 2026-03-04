@@ -32,14 +32,15 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem(20);
-  private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem);
   private final PivotSubsystem m_intakePivot = new PivotSubsystem(19, 0);
   private final ConveyorSubsystem m_ConveyorSubsystem = new ConveyorSubsystem(15);
   private final RunConveyorCommandReverse m_RunConveyorCommandReverse = new RunConveyorCommandReverse(m_ConveyorSubsystem);
   private final RunConveyorCommandForward m_RunConveyorCommandForward = new RunConveyorCommandForward(m_ConveyorSubsystem);
   private final InstantCommand m_StopConveyor = new InstantCommand(() -> m_ConveyorSubsystem.setConveyorSpeed(0));
-  private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivot, 21, 0.5);
+  private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivot, 10.5, 0.1);
   private final MoveToPositionMagicCommand m_movePivotInCommand = new MoveToPositionMagicCommand(m_intakePivot, 0, 0.5);
+  private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem, m_intakePivot);
+
   
   
 
@@ -76,6 +77,7 @@ public class RobotContainer {
     //   m_driverController.b().whileFalse(m_StopConveyor); 
     m_driverController.y().onTrue(m_moveToPositionMagicCommand);
     m_driverController.a().onTrue(m_movePivotInCommand);
+    m_driverController.x().whileTrue(m_IntakeCommand);
    //m_driverController.x().onTrue(new MoveToPositionMagicCommand(m_intakePivotMagic, 0, 0.5));
     // m_driverController.y().whileTrue(new InstantCommand(()-> m_intakePivotMagic.setVoltage(0.4)));
     // m_driverController.y().whileFalse(new InstantCommand(()-> m_intakePivotMagic.setVoltage(0)));

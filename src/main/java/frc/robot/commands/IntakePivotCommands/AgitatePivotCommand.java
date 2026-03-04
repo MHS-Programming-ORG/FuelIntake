@@ -4,16 +4,17 @@
 
 package frc.robot.commands.IntakePivotCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.PivotSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AgitatePivotCommand extends Command {
   PivotSubsystem pivot;
-  double pivotIn = 0;
-  double pivotOut = 0;
+  double pivotIn = 10.5;
+  double pivotOut = 15;
   boolean MovingInOrOut;
-
+  Timer timer = new Timer();
   /** Creates a new AgitatorCommand. */
   public AgitatePivotCommand(PivotSubsystem newPivotSubsystem) {
     pivot = newPivotSubsystem;
@@ -25,24 +26,31 @@ public class AgitatePivotCommand extends Command {
   @Override
   public void initialize() { 
     MovingInOrOut = true;
+    timer.start();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double currentPos = pivot.getPivotEncoder();
-
-    if (MovingInOrOut && currentPos >= pivotOut) {
-        MovingInOrOut = false;
-    } else if (!MovingInOrOut && currentPos <= pivotIn) {
-        MovingInOrOut = true;
+    pivot.setSetPoint(10.5);
+    if(timer.get() > 2) {
+      pivot.setSetPoint(15);
     }
+    timer.stop();
+    // double currentPos = pivot.getPivotEncoder();
 
-    if (MovingInOrOut) {
-        pivot.setSetPoint(pivotOut);
-    } else {
-        pivot.setSetPoint(pivotIn);
-    }
+    // if (MovingInOrOut && currentPos >= pivotOut) {
+    //     MovingInOrOut = false;
+    // } else if (!MovingInOrOut && currentPos <= pivotIn) {
+    //     MovingInOrOut = true;
+    // }
+
+    // if (MovingInOrOut) {
+    //     pivot.setSetPoint(pivotOut);
+    // } else {
+    //     pivot.setSetPoint(pivotIn);
+    // }
   }
 
   // Called once the command ends or is interrupted.
