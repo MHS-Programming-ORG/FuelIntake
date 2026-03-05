@@ -46,7 +46,7 @@ public class PivotSubsystem extends SubsystemBase {
     limit = new SoftwareLimitSwitchConfigs();
     limit.ForwardSoftLimitEnable = true;
     limit.ReverseSoftLimitEnable = true;
-    limit.ForwardSoftLimitThreshold = 21;
+    limit.ForwardSoftLimitThreshold = 22;
     limit.ReverseSoftLimitThreshold = 0;
     
     setPoint = 0;
