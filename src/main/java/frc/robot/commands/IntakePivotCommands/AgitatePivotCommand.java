@@ -7,18 +7,22 @@ package frc.robot.commands.IntakePivotCommands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.PivotSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AgitatePivotCommand extends Command {
+  IntakeSubsystem intake;
   PivotSubsystem pivot;
   double pivotIn = 10.5;
   double pivotOut = 15;
   boolean MovingInOrOut;
   Timer timer = new Timer();
   /** Creates a new AgitatorCommand. */
-  public AgitatePivotCommand(PivotSubsystem newPivotSubsystem) {
+  public AgitatePivotCommand(PivotSubsystem newPivotSubsystem, IntakeSubsystem newintakeSubsystem) {
+    intake = newintakeSubsystem;
     pivot = newPivotSubsystem;
     addRequirements(pivot);
+    addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -38,6 +42,7 @@ public class AgitatePivotCommand extends Command {
       pivot.setSetPoint(15);
     }
     timer.stop();
+    intake.setSpeed(-0.55);
     // double currentPos = pivot.getPivotEncoder();
 
     // if (MovingInOrOut && currentPos >= pivotOut) {
@@ -57,6 +62,7 @@ public class AgitatePivotCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     pivot.setSetPoint(pivotIn);
+    intake.setSpeed(0);
   }
 
   // Returns true when the command should end.
