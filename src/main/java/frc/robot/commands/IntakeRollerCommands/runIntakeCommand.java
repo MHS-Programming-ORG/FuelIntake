@@ -25,7 +25,7 @@ PivotSubsystem Pivot;
   
   @Override
   public void initialize() {
-    Pivot.setSetPoint(21.5);
+    Pivot.setSetPoint(22);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
+import frc.robot.commands.IntakePivotCommands.AgitatePivotCommand;
 import frc.robot.commands.IntakePivotCommands.MoveToPositionMagicCommand;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,6 +41,7 @@ public class RobotContainer {
   private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivot, 10.5, 0.1);
   private final MoveToPositionMagicCommand m_movePivotInCommand = new MoveToPositionMagicCommand(m_intakePivot, 0, 0.5);
   private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem, m_intakePivot);
+  private final AgitatePivotCommand m_AgitatePivotCommand = new AgitatePivotCommand(m_intakePivot, m_intakeSubsystem);
 
   
   
@@ -78,6 +80,7 @@ public class RobotContainer {
     m_driverController.y().onTrue(m_moveToPositionMagicCommand);
     m_driverController.a().onTrue(m_movePivotInCommand);
     m_driverController.x().whileTrue(m_IntakeCommand);
+    m_driverController.b().whileTrue(m_AgitatePivotCommand);
    //m_driverController.x().onTrue(new MoveToPositionMagicCommand(m_intakePivotMagic, 0, 0.5));
     // m_driverController.y().whileTrue(new InstantCommand(()-> m_intakePivotMagic.setVoltage(0.4)));
     // m_driverController.y().whileFalse(new InstantCommand(()-> m_intakePivotMagic.setVoltage(0)));
