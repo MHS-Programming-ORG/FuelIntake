@@ -60,8 +60,7 @@ public class PivotSubsystem extends SubsystemBase {
     configs.Slot0.kV = 0; //Don't use this, last time we used it we broke the pivot 
     configs.Slot0.kG = 0; //Don't use this either, there is no gravity compensation on the pivot 
     configs.Slot0.kA = 0; //Don't use this either, there is no acceleration feedforward on the pivot 
-    configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(false));
-    configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(false));
+    configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(10).withSupplyCurrentLimitEnable(true));
 
     magic.MotionMagicAcceleration = 70;
     magic.MotionMagicCruiseVelocity = 35;

@@ -16,7 +16,7 @@ public class AgitatePivotCommand extends Command {
   IntakeSubsystem intake;
   PivotSubsystem pivot;
   double pivotIn = 10.5;
-  double pivotOut = 15;
+  double pivotOut = 21;
   boolean MovingInOrOut;
   Timer timer = new Timer();
   /** Creates a new AgitatorCommand. */

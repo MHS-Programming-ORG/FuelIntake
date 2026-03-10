@@ -20,8 +20,7 @@ private TalonFXConfiguration configs;
   public IntakeSubsystem(int newintakeID) {
   intakeMotor = new TalonFX(newintakeID);
   configs = new TalonFXConfiguration();
-  configs.withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(0).withStatorCurrentLimitEnable(false));
-   configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(0).withSupplyCurrentLimitEnable(false));
+   configs.withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(10).withSupplyCurrentLimitEnable(true));
    intakeMotor.getConfigurator().apply(configs);
 }
 

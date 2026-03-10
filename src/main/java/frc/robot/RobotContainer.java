@@ -40,7 +40,7 @@ public class RobotContainer {
   private final InstantCommand m_StopConveyor = new InstantCommand(() -> m_ConveyorSubsystem.setConveyorSpeed(0));
   private final MoveToPositionMagicCommand m_moveToPositionMagicCommand = new MoveToPositionMagicCommand(m_intakePivot, 10.5, 0.1);
   private final MoveToPositionMagicCommand m_movePivotInCommand = new MoveToPositionMagicCommand(m_intakePivot, 0, 0.5);
-  private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem, m_intakePivot);
+  private final runIntakeCommand m_IntakeCommand = new runIntakeCommand(m_intakeSubsystem, m_intakePivot, m_ConveyorSubsystem);
   private final AgitatePivotCommand m_AgitatePivotCommand = new AgitatePivotCommand(m_intakePivot, m_intakeSubsystem);
 
   
