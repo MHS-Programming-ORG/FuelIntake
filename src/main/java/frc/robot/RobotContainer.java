@@ -9,7 +9,6 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ConveyorCommands.RunConveyorCommandForward;
 import frc.robot.commands.ConveyorCommands.RunConveyorCommandReverse;
-import frc.robot.commands.IntakeRollerCommands.RunUntilDetectedCommand;
 import frc.robot.commands.IntakeRollerCommands.runIntakeCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
